@@ -10,15 +10,12 @@ if __name__ == '__main__':
     line_count = 0
     total_size = 0
 
-
     def print_stat():
         """Prints the total file size and the count of each status code."""
         print("File size:", total_size)
         for key, value in stat.items():
             if value:
                 print("{}: {}".format(key, value))
-
-
 
     try:
         while True:
