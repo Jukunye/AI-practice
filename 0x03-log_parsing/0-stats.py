@@ -10,27 +10,27 @@ if __name__ == '__main__':
     line_count = 0
     total_size = 0
 
-    def print_stat():
+    def print_stat() -> None:
         """Prints the total file size and the count of each status code."""
-        print("File size:", total_size)
-        for key, value in stat.items():
+        print("File size: {:d}".format(total_size))
+        for key, value in sorted(stat.items()):
             if value:
                 print("{}: {}".format(key, value))
 
     try:
-        while True:
+        for line in sys.stdin:
+            line_count += 1
             try:
-                line = input()  # Read a line from stdin
                 parts = line.split()
                 status_code = int(parts[-2])
                 total_size += int(parts[-1])
                 if status_code in stat:
                     stat[status_code] += 1
-                line_count += 1
-                if line_count % 10 == 0:
-                    print_stat()
             except BaseException:
                 pass
+            if line_count % 10 == 0:
+                print_stat()
+        print_stat()
     except KeyboardInterrupt:
         print_stat()
         raise
